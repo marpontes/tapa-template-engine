@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="lib/guava-16.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/pebble-1.4.5.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.7.3.jar"/>
+	<classpathentry kind="lib" path="lib/coverity-escapers-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/pentaho-platform-api-5.3.0.0-213.jar"/>
+	<classpathentry kind="lib" path="lib/pentaho-platform-core-5.3.0.0-213.jar"/>
+	<classpathentry kind="lib" path="lib/security/spring-2.5.6.jar"/>
+	<classpathentry kind="lib" path="lib/security/spring-security-core-2.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/security/dom4j-1.6.1.jar"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>
