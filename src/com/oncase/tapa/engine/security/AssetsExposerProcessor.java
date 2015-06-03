@@ -186,13 +186,14 @@ public class AssetsExposerProcessor implements BeanFactoryPostProcessor {
 	 * @return The patched objectDefinitionSource with our rules.
 	 * 
 	 * @todo get our rules from a configuration file
+	 * @todo this is an ugly solution to the problem
 	 */
 	private String getReplacedODS(String odsVal){
 		odsVal = odsVal
 				.replace(
 						"CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON", 
 						"CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON\n"
-						+ "\\A/content/tapa/resources/templates/assets.*\\Z=Anonymous,Authenticated"
+						+ "\\A/content/tapa/resources/templates/([\\w\\-\\_]+)/assets/.*\\Z=Anonymous,Authenticated"
 						);
 		return odsVal;
 	}

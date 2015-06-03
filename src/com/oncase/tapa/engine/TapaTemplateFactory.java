@@ -37,7 +37,7 @@ public class TapaTemplateFactory {
 		
 		loader = new FileLoader();
 		loader.setSuffix(getTemplatesSuffix());
-		loader.setPrefix(getTemplatesPath());
+		loader.setPrefix(TapaTemplateHelper.getTemplatesPath());
 		
 		engine = new PebbleEngine(loader);
 		
@@ -52,9 +52,9 @@ public class TapaTemplateFactory {
 	 * @throws IOException 
 	 * @throws PebbleException 
 	 */
-	public String getTemplate(String templateName) throws PebbleException, IOException {
+	public String getTemplate() throws PebbleException, IOException {
 		
-		return getTemplate(templateName,null);
+		return getTemplate(null);
 		
 	}
 	
@@ -68,8 +68,10 @@ public class TapaTemplateFactory {
 	 * @throws PebbleException 
 	 * @throws IOException 
 	 */
-	public String getTemplate(String templateName, Map<String, Object> context) 
+	public String getTemplate(Map<String, Object> context) 
 			throws PebbleException, IOException{
+		
+		final String templateName = TapaTemplateHelper.getCurrentTemplate();
 	
 		PebbleTemplate template = engine.getTemplate(templateName);
 		Writer writer = new StringWriter();
@@ -85,23 +87,19 @@ public class TapaTemplateFactory {
 	}
 	
 	/**
-	 * @return 	The path to the templates
-	 * @todo	Resolve the dependency to PentahoSystem
-	 */
-	private String getTemplatesPath(){
-		
-		return PentahoSystem.getApplicationContext().getSolutionPath("") 
-				+ "/system/tapa/resources/templates/";
-		
-	}
-	
-	/**
 	 * @return The templates suffix - files extension
 	 */
 	private String getTemplatesSuffix(){
 		
-		return ".html";
+		return "/index.html";
 		
+	}
+	
+	/**
+	 * @return A string with the name (folder) of the currently active template
+	 */
+	public static String getCurrentTemplate(){
+		return ""; 
 	}
 	
 }
