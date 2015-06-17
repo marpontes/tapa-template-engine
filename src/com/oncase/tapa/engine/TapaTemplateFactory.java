@@ -5,8 +5,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Map;
 
-import org.pentaho.platform.engine.core.system.PentahoSystem;
-
 import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.error.PebbleException;
 import com.mitchellbosecke.pebble.loader.FileLoader;
@@ -79,10 +77,13 @@ public class TapaTemplateFactory {
 		if(context==null){
 			template.evaluate(writer);
 		}else{
+			Map<String,Object> templateConfigContext = TapaTemplateHelper.getConfigContext();
 			template.evaluate(writer, context);
+			if(templateConfigContext != null && templateConfigContext.size() > 0)
+				template.evaluate(writer,templateConfigContext);
 		}
 		
-		return writer.toString();
+		return writer.toString()+"\n"+TapaTemplateHelper.getTapaConfirmComment();
 		
 	}
 	
