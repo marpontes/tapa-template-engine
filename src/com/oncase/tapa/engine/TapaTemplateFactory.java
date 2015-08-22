@@ -78,9 +78,11 @@ public class TapaTemplateFactory {
 			template.evaluate(writer);
 		}else{
 			Map<String,Object> templateConfigContext = TapaTemplateHelper.getConfigContext();
-			template.evaluate(writer, context);
+			
 			if(templateConfigContext != null && templateConfigContext.size() > 0)
-				template.evaluate(writer,templateConfigContext);
+				context.putAll(templateConfigContext);
+			
+			template.evaluate(writer, context);
 		}
 		
 		return writer.toString()+"\n"+TapaTemplateHelper.getTapaConfirmComment();
