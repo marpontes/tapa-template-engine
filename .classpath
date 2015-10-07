@@ -12,5 +12,8 @@
 	<classpathentry kind="lib" path="lib/security/spring-security-core-2.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/security/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/catalina.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-core-1.16.jar"/>
+	<classpathentry kind="lib" path="lib/pentaho-platform-extensions-5.4.0.1-130.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

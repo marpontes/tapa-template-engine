@@ -38,6 +38,7 @@ public class TapaTemplateFactory {
 		loader.setPrefix(TapaTemplateHelper.getTemplatesPath());
 		
 		engine = new PebbleEngine(loader);
+		engine.setTemplateCache(null);
 		
 	}
 	
@@ -62,17 +63,22 @@ public class TapaTemplateFactory {
 	 * 
 	 * @param templateName 	The template name - usually the filename without extension
 	 * @param context		A map of variables and their values for compilation
+	 * @param t				Template to be returned. If null will return the current enabled 
 	 * @return				The compiled template with all variables considered
 	 * @throws PebbleException 
 	 * @throws IOException 
 	 */
-	public String getTemplate(Map<String, Object> context) 
+	public String getTemplate(Map<String, Object> context, String t) 
 			throws PebbleException, IOException{
 		
-		final String templateName = TapaTemplateHelper.getCurrentTemplate();
-	
+		final String templateName = t == null ? 
+				TapaTemplateHelper.getCurrentTemplate() : t;
+		final String templateRootUrl = 
+				TapaTemplateHelper.getCurrentTemplateRootUrl(templateName);
+		
 		PebbleTemplate template = engine.getTemplate(templateName);
 		Writer writer = new StringWriter();
+		
 		
 		if(context==null){
 			template.evaluate(writer);
@@ -82,12 +88,28 @@ public class TapaTemplateFactory {
 			if(templateConfigContext != null && templateConfigContext.size() > 0)
 				context.putAll(templateConfigContext);
 			
+			context.put("TAPA_TEMPLATE_ROOT_URL", templateRootUrl);
 			template.evaluate(writer, context);
 		}
 		
 		return writer.toString()+"\n"+TapaTemplateHelper.getTapaConfirmComment();
 		
 	}
+	
+	/**
+	 * This method is used to retrieve a String that contains the required template.
+	 * When supplied a map of variables and their values, it returns the compiled template.
+	 * 
+	 * @param templateName 	The template name - usually the filename without extension
+	 * @param context		A map of variables and their values for compilation 
+	 * @return				The compiled template with all variables considered
+	 * @throws PebbleException 
+	 * @throws IOException 
+	 */
+	public String getTemplate(Map<String, Object> context) 
+			throws PebbleException, IOException{
+		return getTemplate(context, null);
+	} 
 	
 	/**
 	 * @return The templates suffix - files extension
@@ -97,12 +119,6 @@ public class TapaTemplateFactory {
 		return "/index.html";
 		
 	}
-	
-	/**
-	 * @return A string with the name (folder) of the currently active template
-	 */
-	public static String getCurrentTemplate(){
-		return ""; 
-	}
+
 	
 }

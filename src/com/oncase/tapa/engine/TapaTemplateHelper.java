@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.catalina.core.ApplicationContextFacade;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -100,6 +101,18 @@ public class TapaTemplateHelper {
 		return jsonObject;
 	}
 	
+	/**
+	 * @return A string with the name (folder) of the currently active template
+	 */
+	public static String getCurrentTemplateRootUrl(String template){
+		
+		final String contextPath = 
+				( (ApplicationContextFacade) 
+						PentahoSystem.getApplicationContext().getContext())
+						.getContextPath();
+		
+		return contextPath+	"/content/tapa/resources/templates/" + template;
+	}
 	
 
 }
