@@ -68,11 +68,9 @@ public class TapaTemplateFactory {
 	 * @throws PebbleException 
 	 * @throws IOException 
 	 */
-	public String getTemplate(Map<String, Object> context, String t) 
+	public String getTemplate(Map<String, Object> context, String templateName) 
 			throws PebbleException, IOException{
 		
-		final String templateName = t == null ? 
-				TapaTemplateHelper.getCurrentTemplate() : t;
 		final String templateRootUrl = 
 				TapaTemplateHelper.getCurrentTemplateRootUrl(templateName);
 		
@@ -83,7 +81,8 @@ public class TapaTemplateFactory {
 		if(context==null){
 			template.evaluate(writer);
 		}else{
-			Map<String,Object> templateConfigContext = TapaTemplateHelper.getConfigContext();
+			Map<String,Object> templateConfigContext = TapaTemplateHelper.getConfigContext(
+					templateName	);
 			
 			if(templateConfigContext != null && templateConfigContext.size() > 0)
 				context.putAll(templateConfigContext);
@@ -108,7 +107,7 @@ public class TapaTemplateFactory {
 	 */
 	public String getTemplate(Map<String, Object> context) 
 			throws PebbleException, IOException{
-		return getTemplate(context, null);
+		return getTemplate(context, TapaTemplateHelper.getCurrentTemplate());
 	} 
 	
 	/**

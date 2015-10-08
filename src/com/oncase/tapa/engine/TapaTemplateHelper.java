@@ -54,9 +54,9 @@ public class TapaTemplateHelper {
 		
 	}
 	
-	public static Map<String,Object> getConfigContext(){
+	public static Map<String,Object> getConfigContext(String template){
 		
-		JSONObject templateConfig = getTemplateCurrentConfig();
+		JSONObject templateConfig = getTemplateCurrentConfig(template);
 		if (templateConfig == null)
 			return null;
 		
@@ -79,19 +79,18 @@ public class TapaTemplateHelper {
 		
 	}
 	
-	public static JSONObject getTemplateCurrentConfig(){
+	public static JSONObject getTemplateCurrentConfig(String template){
 		
 		JSONObject jsonObject = null;
 		JSONParser parser = new JSONParser();
-		final String currentTemplate = getCurrentTemplate();
 		
-		if(currentTemplate==null)
+		if(template==null)
 			return null;
 		
 		try {
 			
 			Object obj = parser.parse(new FileReader(
-					getTemplatesPath()+currentTemplate+"/template-config.json"));
+					getTemplatesPath()+template+"/template-config.json"));
 			jsonObject = (JSONObject) obj;
 			
 		} catch (IOException | ParseException e) {

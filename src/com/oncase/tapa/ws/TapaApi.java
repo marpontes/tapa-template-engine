@@ -26,15 +26,14 @@ public class TapaApi {
 	
 	TapaTemplateFactory factory;
 	
-	public TapaApi() throws PluginBeanException{
-		IPluginManager plugMan = 
-				PentahoSystem.get(
-						IPluginManager.class, PentahoSessionHolder.getSession());
-		
-		factory = (TapaTemplateFactory) plugMan.getBean("tapaTemplateFactory");
-		
+	public TapaTemplateFactory getFactory() {
+		return factory;
 	}
-	
+
+	public void setFactory(TapaTemplateFactory factory) {
+		this.factory = factory;
+	}
+
 	@GET
 	@Path("/preview")
 	@Produces("text/html")
